@@ -13,7 +13,6 @@ for (let index = 0; index < 3; index++) {
 }
 console.log("part 2", top3sum)
 
-
 function findHighestSumAndRemove(data:number[][]) : {data:number[][], sum:number} {
     let highestSum = -1
     let highestSumIdx = -1
@@ -32,19 +31,6 @@ function findHighestSumAndRemove(data:number[][]) : {data:number[][], sum:number
     }
 }
 
-
-// deprecated code for part 1
-// function findHighestSum(data:number[][]) : number {
-//     let highestSum = 0
-//     data.forEach(x => {
-//         let sum = x.reduce((a, b) => a + b, 0)
-//         if(sum > highestSum){
-//             highestSum = sum
-//         }
-//     })
-//     return highestSum;
-// }
-
 function dataTo2DArray(data:string[]) : number[][] {
     let arr = [];
     let innerArr = [];
@@ -60,4 +46,3 @@ function dataTo2DArray(data:string[]) : number[][] {
     }
     return arr;
 }
-
