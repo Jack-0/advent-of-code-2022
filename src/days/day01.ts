@@ -1,17 +1,27 @@
-import * as fs from "fs";
+import {Solution} from "../types/types"
 
-let data = fs.readFileSync("./data/day01.txt").toString().split("\n");
-let elves = dataTo2DArray(data)
-console.log("part 1", findHighestSumAndRemove(elves).sum)
 
-let top3sum = 0
-let e = elves
-for (let index = 0; index < 3; index++) {
-    let res = findHighestSumAndRemove(e)
-    e = res.data;
-    top3sum += res.sum;
+export const day01 = (data: string[]) : Solution => {
+    let elves = dataTo2DArray(data)
+
+    function part1(){
+        return findHighestSumAndRemove(elves).sum
+    }
+
+    function part2(){
+        let top3sum = 0
+        let e = elves
+        for (let index = 0; index < 3; index++) {
+            let res = findHighestSumAndRemove(e)
+            e = res.data;
+            top3sum += res.sum;
+        }
+        return top3sum
+    }
+
+    return {part1, part2}
 }
-console.log("part 2", top3sum)
+
 
 function findHighestSumAndRemove(data:number[][]) : {data:number[][], sum:number} {
     let highestSum = -1

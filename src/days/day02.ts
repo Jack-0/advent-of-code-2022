@@ -1,4 +1,6 @@
-import * as fs from "fs";
+import {Solution} from "../types/types"
+
+
 
 // object values
 const rockValues = ['A', 'X'];
@@ -18,28 +20,7 @@ type guideEntry = {
     opponent: number
 }
 
-let data = fs.readFileSync("./data/day02.txt").toString().split("\n");
-let guide = parseData(data)
 
-let p1Score = 0;
-let p2Score = 0;
-guide.forEach(e => {
-    p1Score += calcScore(e.you, e.opponent);
-    p2Score += calcScorePart2(e.you, e.opponent);
-});
-/*
-    rr 1 1 // d ==
-    rp 1 2 // l you == opponent - 1 
-    rs 1 3 // w
-    pr 2 1 // w
-    pp 2 2 // d ==
-    ps 2 3 // l you == opponent - 1
-    sr 3 1 // l 
-    sp 3 2 // w 
-    ss 3 3 // d ==
-*/
-console.log("part 1", p1Score)
-console.log("part 2", p2Score)
 
 function calcScore(you:number, opponent:number) : number {
     if (you === opponent) {
@@ -98,4 +79,26 @@ function charToObject(c:string) : number {
     else if (scissorValues.includes(c)){
         return 3
     }
+}
+
+
+// let data = fs.readFileSync("./data/day02.txt").toString().split("\n");
+export const day02 = (data: string[]) : Solution => {
+    let guide = parseData(data)
+
+    let p1Score = 0;
+    let p2Score = 0;
+    guide.forEach(e => {
+        p1Score += calcScore(e.you, e.opponent);
+        p2Score += calcScorePart2(e.you, e.opponent);
+    });
+
+    function part1(){
+        return p1Score
+    }
+
+    function part2(){
+        return p2Score
+    }
+    return {part1, part2}
 }
