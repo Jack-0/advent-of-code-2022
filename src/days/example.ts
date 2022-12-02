@@ -1,6 +1,6 @@
 import {Solution} from "../types/types"
 
-export const day01 = (data: string[]) : Solution => {
+export const dayXX = (data: string[]) : Solution => {
     function part1(){
         return "Hello"
     }
