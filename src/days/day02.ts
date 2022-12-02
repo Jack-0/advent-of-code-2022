@@ -1,7 +1,5 @@
 import {Solution} from "../types/types"
 
-
-
 // object values
 const rockValues = ['A', 'X'];
 const paperValues = ['B', 'Y'];
@@ -19,8 +17,6 @@ type guideEntry = {
     you: number,
     opponent: number
 }
-
-
 
 function calcScore(you:number, opponent:number) : number {
     if (you === opponent) {
@@ -81,8 +77,6 @@ function charToObject(c:string) : number {
     }
 }
 
-
-// let data = fs.readFileSync("./data/day02.txt").toString().split("\n");
 export const day02 = (data: string[]) : Solution => {
     let guide = parseData(data)
 
