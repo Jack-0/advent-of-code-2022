@@ -2,7 +2,7 @@
 
 Typescript and node
 
-# How to run solutions
+# Running the solutions
 
 `yarn start -d 1 -e`
 
