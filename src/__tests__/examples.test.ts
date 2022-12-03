@@ -32,3 +32,14 @@ describe("day03", () => {
       expect(part2()).toBe(70);
     });
 });
+
+describe("day04", () => {
+    it("part1", () => {
+      const {part1} = solutions(4, true)
+      expect(part1()).toBe("changeMe");
+    });
+    it("part2", () => {
+      const {part2} = solutions(4, true)
+      expect(part2()).toBe("changeMe");
+    });
+});
