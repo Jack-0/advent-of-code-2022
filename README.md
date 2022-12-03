@@ -6,6 +6,14 @@ Typescript and node
 
 `yarn start -d 1 -e`
 
+# Running the tests
+
+All tests
+`yarn test`
+
+Specific day
+`yarn test -r day01`
+
 # options
 
 Select a day
