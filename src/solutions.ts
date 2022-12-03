@@ -2,6 +2,7 @@ import * as fs from "fs";
 import { Solution } from "./types/types";
 import {day01} from "./days/day01";
 import {day02} from "./days/day02";
+import {day03} from "./days/day03";
 
 export function solutions(day:number, example:boolean) : Solution {
     // find data
@@ -14,6 +15,7 @@ export function solutions(day:number, example:boolean) : Solution {
     // return solutions
     if (day === 1) return day01(data)
     if (day === 2) return day02(data)
+    if (day === 3) return day03(data)
 
     throw new Error(`No solution found for ${day}`);
 }

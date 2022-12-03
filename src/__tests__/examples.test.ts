@@ -27,4 +27,8 @@ describe("day03", () => {
       const {part1} = solutions(3, true)
       expect(part1()).toBe(157);
     });
+    it("part2", () => {
+      const {part2} = solutions(3, true)
+      expect(part2()).toBe(70);
+    });
 });
