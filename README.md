@@ -1,23 +1,20 @@
-# Advent of code 2022
+# Advent of code
 
-Typescript and node
+[Advent of code](https://adventofcode.com/2019/about) presents a programming challenge on each day of advent. The problems vary in difficulty and are great way to learn a new language or test your current knowledge.
 
-# Running the solutions
+## Progression
 
-`yarn start -d 1 -e`
+| Year | goal / description                                |
+| ---- | ------------------------------------------------- |
+| 2022 | Finish each part 1 challenge on it's assigned day |
+| 2021 | TODO                                              |
+| 2020 | TODO                                              |
+| 2019 | TODO                                              |
+| 2018 | TODO                                              |
+| 2017 | TODO                                              |
+| 2016 | TODO                                              |
+| 2015 | TODO                                              |
 
-# Running the tests
+### Misc Links
 
-All tests
-`yarn test`
-
-Specific day
-`yarn test -r day01`
-
-# options
-
-Select a day
-`-d <day>`
-
-Optional use example data
-`-e`
+[Show all AOC years](https://adventofcode.com/2022/events)
