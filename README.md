@@ -15,6 +15,10 @@
 | 2016 | TODO                                              |
 | 2015 | TODO                                              |
 
+## Project format
+
+`year` `=>` `language` `=>` `README.md`
+
 ### Misc Links
 
 [Show all AOC years](https://adventofcode.com/2022/events)
