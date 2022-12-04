@@ -1,6 +1,6 @@
 # Advent of code
 
-[Advent of code](https://adventofcode.com/2019/about) presents a programming challenge on each day of advent. The problems vary in difficulty and are great way to learn a new language or test your current knowledge.
+[Advent of code](https://adventofcode.com/2019/about) (AOC) presents a programming challenge on each day of advent. The problems vary in difficulty and are great way to learn a new language or test your current knowledge.
 
 ## Progression
 
