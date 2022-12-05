@@ -12,7 +12,7 @@ export function solutions(day: number, example: boolean): Solution {
   let dataFilepath = example
     ? `day${dayFormat}-example.txt`
     : `day${dayFormat}.txt`;
-  dataFilepath = "./data/" + dataFilepath;
+  dataFilepath = "./input/" + dataFilepath;
   let data = fs.readFileSync(dataFilepath).toString().split("\n");
   if (data.length < 1) throw new Error(`No data at filepath ${dataFilepath}`);
 
