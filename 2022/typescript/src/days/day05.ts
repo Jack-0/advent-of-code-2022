@@ -1,6 +1,4 @@
-import { reverse } from "dns";
 import { Solution } from "../types/types";
-
 
 function cratesTo2DArray(originalCrates:string[]):string[][]{
   const crates = JSON.parse(JSON.stringify(originalCrates))
