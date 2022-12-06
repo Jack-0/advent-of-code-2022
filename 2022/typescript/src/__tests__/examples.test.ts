@@ -58,10 +58,10 @@ describe("day05", () => {
 describe("day06", () => {
   it("part1", () => {
     const { part1 } = solutions(6, true);
-    expect(part1()).toBe('');
+    expect(part1()).toBe(10);
   });
   it("part2", () => {
     const { part2 } = solutions(6, true);
-    expect(part2()).toBe('');
+    expect(part2()).toBe(29);
   });
 });
