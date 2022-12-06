@@ -47,10 +47,21 @@ describe("day04", () => {
 describe("day05", () => {
   it("part1", () => {
     const { part1 } = solutions(5, true);
-    expect(part1()).toBe(0);
+    expect(part1()).toBe('CMZ');
   });
   it("part2", () => {
     const { part2 } = solutions(5, true);
-    expect(part2()).toBe(0);
+    expect(part2()).toBe('MCD');
+  });
+});
+
+describe("day06", () => {
+  it("part1", () => {
+    const { part1 } = solutions(6, true);
+    expect(part1()).toBe('');
+  });
+  it("part2", () => {
+    const { part2 } = solutions(6, true);
+    expect(part2()).toBe('');
   });
 });
