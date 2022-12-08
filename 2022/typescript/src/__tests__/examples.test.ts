@@ -85,6 +85,6 @@ describe("day08", () => {
   });
   it("part2", () => {
     const { part2 } = solutions(8, true);
-    expect(part2()).toBe(0);
+    expect(part2()).toBe(8);
   });
 });

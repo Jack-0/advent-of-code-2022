@@ -13,89 +13,164 @@ export const day08 = (data: string[]): Solution => {
     row = [];
   });
 
-  function visibleInAxis(
-    treeHeight: number,
-    y: number,
-    x: number,
-    searchY: boolean = false
-  ): boolean {
-    let leftSafe = true;
-    let rightSafe = true;
+  type Directions = {
+    left: number[];
+    right: number[];
+    up: number[];
+    down: number[];
+  };
 
-    if (searchY) {
-      for (let i = 0; i < treeMatrix[0].length; i++) {
-        const e = treeMatrix[i][x];
-        if (e >= treeHeight && i !== y) {
-          if (i < y) {
-            leftSafe = false;
-          } else {
-            rightSafe = false;
-          }
+  function matrixToDirections(
+    matrix: number[][],
+    y: number,
+    x: number
+  ): Directions {
+    let left = [];
+    let right = [];
+    let up = [];
+    let down = [];
+    for (let i = 0; i < matrix[0].length; i++) {
+      const yElement = matrix[i][x];
+      const xElement = matrix[y][i];
+
+      if (i !== y) {
+        if (y < i) {
+          down.push(yElement);
+        } else if (y > i) {
+          up.push(yElement);
         }
       }
-    } else {
-      for (let i = 0; i < treeMatrix[0].length; i++) {
-        const e = treeMatrix[y][i];
-        if (e >= treeHeight && i !== x) {
-          if (i < x) {
-            leftSafe = false;
-          } else {
-            rightSafe = false;
-          }
+
+      if (i !== x) {
+        if (x < i) {
+          right.push(xElement);
+        } else if (x > i) {
+          left.push(xElement);
         }
       }
     }
 
-    return leftSafe || rightSafe;
+    up.reverse();
+    left.reverse();
+
+    return { up, down, left, right };
   }
 
-  function isTreeVisible(y, x): boolean {
+  function isTreeVisible(y: number, x: number, matrix: number[][]): boolean {
     // if tree is on edge of matrix it's visible
+    const directions = matrixToDirections(matrix, y, x);
+    const treeValue = matrix[y][x];
+
     if (
-      x === treeMatrix[x].length - 1 ||
-      x === 0 ||
-      y === treeMatrix[y].length - 1 ||
-      y === 0
+      directions.left.length === 0 ||
+      directions.down.length === 0 ||
+      directions.up.length === 0 ||
+      directions.right.length === 0
     ) {
       return true;
-    } else {
-      // x
-      if (visibleInAxis(treeMatrix[y][x], y, x, false)) {
-        return true;
-      }
-      // y down
-      if (visibleInAxis(treeMatrix[y][x], y, x, true)) {
-        return true;
-      }
     }
 
-    return false;
+    let visibleFromLeft = true;
+    let visibleFromDown = true;
+    let visibleFromUp = true;
+    let visibleFromRight = true;
+
+    directions.left.forEach((x) => {
+      if (x >= treeValue) {
+        visibleFromLeft = false;
+      }
+    });
+
+    directions.down.forEach((x) => {
+      if (x >= treeValue) {
+        visibleFromDown = false;
+      }
+    });
+
+    directions.up.forEach((x) => {
+      if (x >= treeValue) {
+        visibleFromUp = false;
+      }
+    });
+
+    directions.right.forEach((x) => {
+      if (x >= treeValue) {
+        visibleFromRight = false;
+      }
+    });
+
+    return (
+      visibleFromLeft || visibleFromDown || visibleFromUp || visibleFromRight
+    );
+  }
+
+  function scenicScore(y: number, x: number, matrix: number[][]): number {
+    const directions = matrixToDirections(matrix, y, x);
+    const treeValue = matrix[y][x];
+
+    let leftScore = 0;
+    let downScore = 0;
+    let upScore = 0;
+    let rightScore = 0;
+
+    directions.left.every((x) => {
+      leftScore += 1;
+      if (x >= treeValue) {
+        return false;
+      }
+      return true;
+    });
+
+    directions.down.every((x) => {
+      downScore += 1;
+      if (x >= treeValue) {
+        return false;
+      }
+      return true;
+    });
+
+    directions.up.every((x) => {
+      upScore += 1;
+      if (x >= treeValue) {
+        return false;
+      }
+      return true;
+    });
+
+    directions.right.every((x) => {
+      rightScore += 1;
+      if (x >= treeValue) {
+        return false;
+      }
+      return true;
+    });
+
+    return leftScore * downScore * upScore * rightScore;
   }
 
   function part1() {
     let res = 0;
-    let testArr = [];
-    let t = "";
-    console.log(treeMatrix);
     treeMatrix.forEach((row, y) => {
-      t = "";
       row.forEach((value, x) => {
-        if (isTreeVisible(y, x)) {
+        if (isTreeVisible(y, x, treeMatrix)) {
           res += 1;
         }
-        t += `[(Y${y},X${x})=${treeMatrix[y][x]}-${
-          isTreeVisible(y, x) ? "Y" : "N"
-        }]`;
       });
-      testArr.push(t);
     });
-
-    console.log(testArr);
     return res;
   }
 
   function part2() {
-    return 0;
+    let res = 0;
+    treeMatrix.forEach((row, y) => {
+      row.forEach((value, x) => {
+        const score = scenicScore(y, x, treeMatrix);
+        if (score > res) {
+          res = score;
+        }
+      });
+    });
+    return res;
   }
 
   return { part1, part2 };
