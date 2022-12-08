@@ -3,104 +3,100 @@ import { Solution } from "../types/types";
 export const day08 = (data: string[]): Solution => {
   // each tree is a number 0-9 where 9 is tallest
   // tree is visible if all other trees in x and y axis are smaller as we traverse to the edge of grid
-  const xLen = data[0].length;
-  const yLen = data.length;
-  console.log("xLen", xLen, "yLen", yLen);
-  let tmpStr = "";
-  const xArr = data;
-  const yArr: string[] = [];
-  for (let i = 0; i < yLen; i++) {
-    xArr.forEach((x) => {
-      tmpStr += x[i];
+  const treeMatrix: number[][] = [];
+  let row: number[] = [];
+  data.forEach((strRow) => {
+    Array.from(strRow).forEach((char) => {
+      row.push(parseInt(char));
     });
-    yArr.push(tmpStr);
-    tmpStr = "";
-  }
-  const xArrReverse = reverse(xArr);
-  const yArrReverse = reverse(yArr);
+    treeMatrix.push(row);
+    row = [];
+  });
 
-  function reverse(target: string[]): string[] {
-    const copy = JSON.parse(JSON.stringify(target));
-    copy.forEach((str, idx) => {
-      const reverseStr = Array.from(str).reverse().join("");
-      copy[idx] = reverseStr;
-    });
-    return copy;
-  }
+  function visibleInAxis(
+    treeHeight: number,
+    y: number,
+    x: number,
+    searchY: boolean = false
+  ): boolean {
+    let leftSafe = true;
+    let rightSafe = true;
 
-  function findVisible(str: string): number[] {
-    const visible: number[] = [];
-
-    let lastHighest = 0;
-    // console.log(str, "-----------------------");
-    Array.from(str).forEach((x, idx) => {
-      const value = parseInt(x);
-
-      if (idx === 0) {
-        // first tree always visible
-        lastHighest = value;
-        visible.push(value);
-      } else {
-        if (value > lastHighest) {
-          lastHighest = value;
-          visible.push(value);
-        } else {
-          visible.push(0);
+    if (searchY) {
+      for (let i = 0; i < treeMatrix[0].length; i++) {
+        const e = treeMatrix[i][x];
+        if (e >= treeHeight && i !== y) {
+          if (i < y) {
+            leftSafe = false;
+          } else {
+            rightSafe = false;
+          }
         }
       }
-      // console.log(
-      //   "value",
-      //   value,
-      //   "visible",
-      //   visible,
-      //   "lastHighest",
-      //   lastHighest
-      // );
-    });
+    } else {
+      for (let i = 0; i < treeMatrix[0].length; i++) {
+        const e = treeMatrix[y][i];
+        if (e >= treeHeight && i !== x) {
+          if (i < x) {
+            leftSafe = false;
+          } else {
+            rightSafe = false;
+          }
+        }
+      }
+    }
 
-    // for each number
-    return visible;
+    return leftSafe || rightSafe;
   }
 
-  console.log("x", xArr, xArrReverse);
-  console.log("y", yArr, yArrReverse);
+  function isTreeVisible(y, x): boolean {
+    // if tree is on edge of matrix it's visible
+    if (
+      x === treeMatrix[x].length - 1 ||
+      x === 0 ||
+      y === treeMatrix[y].length - 1 ||
+      y === 0
+    ) {
+      return true;
+    } else {
+      // x
+      if (visibleInAxis(treeMatrix[y][x], y, x, false)) {
+        return true;
+      }
+      // y down
+      if (visibleInAxis(treeMatrix[y][x], y, x, true)) {
+        return true;
+      }
+    }
 
-  function forEachArray(arrays: any[][], callback: Function): number[][][] {
-    let res = [];
-    arrays.forEach((arr) => {
-      let subRes = [];
-      arr.forEach((x) => {
-        // do something
-        subRes.push(callback(x));
-      });
-      res.push(subRes);
-    });
-    return res;
+    return false;
   }
 
   function part1() {
-    // findVisible(xArr[0]);
-    let allVisible = forEachArray(
-      [xArr, yArr, xArrReverse, yArrReverse],
-      findVisible
-    );
-    console.log(allVisible);
-
-    let temp = 0;
-    allVisible.forEach((x) => {
-      x.forEach((y) => {
-        y.forEach((value) => {
-          if (value > 0) {
-            temp += 1;
-          }
-        });
+    let res = 0;
+    let testArr = [];
+    let t = "";
+    console.log(treeMatrix);
+    treeMatrix.forEach((row, y) => {
+      t = "";
+      row.forEach((value, x) => {
+        if (isTreeVisible(y, x)) {
+          res += 1;
+        }
+        t += `[(Y${y},X${x})=${treeMatrix[y][x]}-${
+          isTreeVisible(y, x) ? "Y" : "N"
+        }]`;
       });
-      console.log(temp);
+      testArr.push(t);
     });
-    return temp - 4 * 4;
+
+    console.log(testArr);
+    return res;
   }
+
   function part2() {
-    return "";
+    return 0;
   }
+
   return { part1, part2 };
 };
