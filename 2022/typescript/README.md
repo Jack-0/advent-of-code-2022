@@ -21,3 +21,8 @@ Select a day
 
 Optional use example data
 `-e`
+
+# Debug support
+
+brave://inspect/#devices
+`yarn node --inspect-brk --require ts-node/register src/index.ts -d 0 -e`
