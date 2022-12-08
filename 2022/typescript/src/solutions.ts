@@ -6,6 +6,7 @@ import { day03 } from "./days/day03";
 import { day04 } from "./days/day04";
 import { day05 } from "./days/day05";
 import { day06 } from "./days/day06";
+import { day07 } from "./days/day07";
 
 export function solutions(day: number, example: boolean): Solution {
   // find data
@@ -24,6 +25,7 @@ export function solutions(day: number, example: boolean): Solution {
   if (day === 4) return day04(data);
   if (day === 5) return day05(data);
   if (day === 6) return day06(data);
+  if (day === 7) return day07(data);
 
   throw new Error(`No solution found for ${day}`);
 }
