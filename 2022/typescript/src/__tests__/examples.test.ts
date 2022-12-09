@@ -88,3 +88,14 @@ describe("day08", () => {
     expect(part2()).toBe(8);
   });
 });
+
+describe("day09", () => {
+  it("part1", () => {
+    const { part1 } = solutions(13, true);
+    expect(part1()).toBe(0);
+  });
+  it("part2", () => {
+    const { part2 } = solutions(9, true);
+    expect(part2()).toBe(0);
+  });
+});

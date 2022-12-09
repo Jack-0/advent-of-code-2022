@@ -8,16 +8,22 @@ import { day05 } from "./days/day05";
 import { day06 } from "./days/day06";
 import { day07 } from "./days/day07";
 import { day08 } from "./days/day08";
+import { day09 } from "./days/day09";
+
+export function inputToArray(filepath: string): any[] {
+  const data = fs.readFileSync(filepath).toString().split("\n");
+  if (data.length < 1) throw new Error(`No data at filepath ${filepath}`);
+  return data;
+}
 
 export function solutions(day: number, example: boolean): Solution {
   // find data
   let dayFormat = day.toString().padStart(2, "0");
-  let dataFilepath = example
+  let filepath = example
     ? `day${dayFormat}-example.txt`
     : `day${dayFormat}.txt`;
-  dataFilepath = "./input/" + dataFilepath;
-  let data = fs.readFileSync(dataFilepath).toString().split("\n");
-  if (data.length < 1) throw new Error(`No data at filepath ${dataFilepath}`);
+  filepath = "./input/" + filepath;
+  const data = inputToArray(filepath);
 
   // return solutions
   if (day === 1) return day01(data);
@@ -28,6 +34,7 @@ export function solutions(day: number, example: boolean): Solution {
   if (day === 6) return day06(data);
   if (day === 7) return day07(data);
   if (day === 8) return day08(data);
+  if (day === 9) return day09(data);
 
   throw new Error(`No solution found for ${day}`);
 }
