@@ -18,7 +18,7 @@ export const day10 = (data: string[]): Solution => {
     } else {
       pixels.push(" ");
     }
-    console.log("cycle", cycle + 1, "x(", x, ") CRT state", pixels.join(""));
+    // console.log("cycle", cycle + 1, "x(", x, ") CRT state", pixels.join(""));
   }
 
   data.forEach((line, idx) => {
@@ -26,17 +26,17 @@ export const day10 = (data: string[]): Solution => {
 
     if (instruction) {
       if (instruction === "noop") {
-        console.log("begin executing", instruction, value);
+        // console.log("begin executing", instruction, value);
         handlePixel(x, cycles.length);
         cycles.push(x);
       } else {
-        console.log("begin executing", instruction, value);
+        // console.log("begin executing", instruction, value);
         handlePixel(x, cycles.length);
         cycles.push(x);
         handlePixel(x, cycles.length);
         cycles.push(x);
         x = x + parseInt(value);
-        console.log("finish executing", instruction, value);
+        // console.log("finish executing", instruction, value);
       }
     }
   });
@@ -49,7 +49,6 @@ export const day10 = (data: string[]): Solution => {
     signalSum += 140 * cycles[140 - 1];
     signalSum += 180 * cycles[180 - 1];
     signalSum += 220 * cycles[220 - 1];
-
     return signalSum;
   }
   function part2() {
