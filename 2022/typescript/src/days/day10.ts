@@ -3,17 +3,40 @@ import { Solution } from "../types/types";
 
 export const day10 = (data: string[]): Solution => {
   const cycles: number[] = [];
+  const pixels: string[] = [];
 
   let x = 1;
+
+  function handlePixel(x: number, cycle: number) {
+    if (cycle > 40) {
+      cycle = cycle % 40;
+    }
+
+    let inRange = x > cycle - 2 && x < cycle + 2;
+    if (inRange) {
+      pixels.push("#");
+    } else {
+      pixels.push(" ");
+    }
+    console.log("cycle", cycle + 1, "x(", x, ") CRT state", pixels.join(""));
+  }
+
   data.forEach((line, idx) => {
     const [instruction, value] = line.split(" ");
+
     if (instruction) {
       if (instruction === "noop") {
+        console.log("begin executing", instruction, value);
+        handlePixel(x, cycles.length);
         cycles.push(x);
       } else {
+        console.log("begin executing", instruction, value);
+        handlePixel(x, cycles.length);
         cycles.push(x);
+        handlePixel(x, cycles.length);
         cycles.push(x);
         x = x + parseInt(value);
+        console.log("finish executing", instruction, value);
       }
     }
   });
@@ -30,9 +53,17 @@ export const day10 = (data: string[]): Solution => {
     return signalSum;
   }
   function part2() {
-    console.log(cycles);
+    var size = 40;
+    var pixelArrs = [];
+    for (var i = 0; i < pixels.length; i += size) {
+      pixelArrs.push(pixels.slice(i, i + size));
+    }
+    console.log("Part 2");
+    pixelArrs.forEach((pixelArr) => {
+      console.log(pixelArr.join(""));
+    });
 
-    return;
+    return 0;
   }
   return { part1, part2 };
 };
