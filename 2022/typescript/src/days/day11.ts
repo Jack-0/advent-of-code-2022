@@ -17,7 +17,7 @@ class Monkey {
   falseMonkey: number;
   inspectionCount: number;
   worryItems: number[];
-  worryMultiplier: number;
+  part1: boolean;
   inPlay: boolean;
 
   constructor(
@@ -27,7 +27,7 @@ class Monkey {
     operation: Operation,
     trueMonkey: number,
     falseMonkey: number,
-    worryMultiplier: number = 1
+    part1: boolean
   ) {
     this.idx = idx;
     this.items = items;
@@ -35,7 +35,7 @@ class Monkey {
     this.operation = operation;
     this.trueMonkey = trueMonkey;
     this.falseMonkey = falseMonkey;
-    this.worryMultiplier = worryMultiplier;
+    this.part1 = part1;
     this.inspectionCount = 0;
     this.inPlay = true;
   }
@@ -48,20 +48,13 @@ class Monkey {
 
     this.inspectionCount++;
 
-    let worryValue = this.calculateWorry(this.items[0]);
+    let mod = monkeys.map((m) => m.testValue).reduce((a, b) => a * b);
 
-    worryValue = Math.floor(worryValue / this.worryMultiplier);
+    let worryValue = this.calculateWorry(this.items[0] % mod);
+    worryValue = this.part1 ? Math.floor(worryValue / 3) : worryValue;
 
-    let monkeyIdx = 0;
-    if (worryValue % this.testValue === 0) {
-      monkeyIdx = this.trueMonkey;
-    } else {
-      monkeyIdx = this.falseMonkey;
-    }
-
-    if (monkeyIdx === 2) {
-      console.log("monkey", this.idx, "passed to", 2);
-    }
+    let monkeyIdx =
+      worryValue % this.testValue === 0 ? this.trueMonkey : this.falseMonkey;
 
     this.items.shift();
     monkeys[monkeyIdx].items.push(worryValue);
@@ -96,7 +89,7 @@ class Monkey {
   }
 }
 
-function monkeysFromData(data: string[], worryMultiplier: number): Monkey[] {
+function monkeysFromData(data: string[], part1: boolean): Monkey[] {
   var monkeys: Monkey[] = [];
   const size = 7;
   let monkeyIdx = 0;
@@ -124,7 +117,7 @@ function monkeysFromData(data: string[], worryMultiplier: number): Monkey[] {
         operation,
         trueMonkey,
         falseMonkey,
-        worryMultiplier
+        part1
       )
     );
 
@@ -135,7 +128,7 @@ function monkeysFromData(data: string[], worryMultiplier: number): Monkey[] {
 
 export const day11 = (data: string[]): Solution => {
   function part1() {
-    const monkeys = monkeysFromData(data, 3);
+    const monkeys = monkeysFromData(data, true);
     // 20 rounds
     for (let i = 0; i < 20; i++) {
       monkeys.forEach((m) => {
@@ -154,9 +147,9 @@ export const day11 = (data: string[]): Solution => {
   }
 
   function part2() {
-    const monkeys = monkeysFromData(data, 1);
+    const monkeys = monkeysFromData(data, false);
     // 20 rounds
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10000; i++) {
       monkeys.forEach((m) => {
         m.inPlay = true;
         while (m.inPlay) {
