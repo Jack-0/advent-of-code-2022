@@ -58,13 +58,9 @@ class Monkey {
 
     this.items.shift();
     monkeys[monkeyIdx].items.push(worryValue);
-
-    debugger;
-    //return monkeyIdx;
   }
 
   calculateWorry(item): number {
-    // const worrySum = this.items.reduce((a, b) => a + b, 0);
     let a =
       this.operation.valueA === "old" ? item : parseInt(this.operation.valueA);
     let b =
@@ -84,7 +80,6 @@ class Monkey {
       default:
         throw new Error("Unknown operation");
     }
-    // this.worryLevel = worry;
     return worry;
   }
 }
