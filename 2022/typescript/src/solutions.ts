@@ -11,6 +11,7 @@ import { day08 } from "./days/day08";
 import { day09 } from "./days/day09";
 import { day10 } from "./days/day10";
 import { day11 } from "./days/day11";
+import { day12 } from "./days/day12";
 
 export function inputToArray(filepath: string): any[] {
   const data = fs.readFileSync(filepath).toString().split("\n");
@@ -39,6 +40,7 @@ export function solutions(day: number, example: boolean): Solution {
   if (day === 9) return day09(data);
   if (day === 10) return day10(data);
   if (day === 11) return day11(data);
+  if (day === 12) return day12(data);
 
   throw new Error(`No solution found for ${day}`);
 }
