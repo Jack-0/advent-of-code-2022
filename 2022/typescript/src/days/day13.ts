@@ -22,8 +22,8 @@ export const day13 = (data: string[]): Solution => {
     notCorrect = -1,
   }
   function compareLR(left: any, right: any, idx = -1): Result {
-    left = JSON.parse(JSON.stringify(left));
-    right = JSON.parse(JSON.stringify(right));
+    left = structuredClone(left);
+    right = structuredClone(right);
     if (Array.isArray(left) && Array.isArray(right)) {
       const maxLen = Math.max(left.length, right.length);
       for (let i = 0; i < maxLen; i++) {
