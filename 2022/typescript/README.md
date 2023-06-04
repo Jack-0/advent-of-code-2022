@@ -1,8 +1,8 @@
 # Advent of code 2022
 
-This repo is used to explore JS/TS
+🧐 This repo is used to explore JS/TS
 
-⚠️ **not all code is intended to be readable** ⚠ ️
+⚠️ **not all code is intended to be readable**
 
 ## About
 
