@@ -55,29 +55,31 @@ function drawWalls(data: string[]): Coord[] {
   return walls;
 }
 
-function poorFromCoordUntilAbyss(x: number, y: number, cave: Coord[]): number {
-  // sand pours into the 'cave' from 500, 0 (x,y)
-  // sand goes down until rock or sand hit, then it goes diagonally down left, else down right, else assume it's trapped.
+function poorFromCoordUntilAbyss(
+  x: number,
+  y: number,
+  cave: Coord[],
+  limit: number
+): number {
   let count = 0;
 
   let finished = false;
-  const limit = Math.max(...cave.map((coord) => coord.y));
   while (!finished) {
     recursivelyMove(x, y, cave, limit) === 1 ? (count += 1) : (finished = true);
     // printHelpMap(cave, count);
   }
 
+  return cave.filter((x) => x.value === "o").length;
   return count;
 }
 
 function printHelpMap(cave: Coord[], iter: number) {
   console.log(iter ? `\n${iter}:` : "");
-  for (let y = 0; y < 10; y++) {
+  for (let y = 0; y < Math.max(...cave.map((x) => x.y)) + 4; y++) {
     let line = "";
-    for (let x = 494; x < 504; x++) {
+    for (let x = 494 - 10; x < 504 + 10; x++) {
       const value = cave.find((coord) => coord.x === x && coord.y === y);
       line += value?.value ?? ".";
-      debugger;
     }
     console.log(line);
   }
@@ -89,6 +91,9 @@ function recursivelyMove(
   cave: Coord[],
   limit: number
 ): number {
+  // sand pours into the 'cave' from 500, 0 (x,y)
+  // sand goes down until rock or sand hit, then it goes diagonally down left, else down right, else assume it's trapped.
+
   if (y > limit) return 0;
   const below = cave.find((coord) => coord.x === x && coord.y === y + 1);
   const diagonalDownLeft = cave.find(
@@ -97,6 +102,15 @@ function recursivelyMove(
   const diagonalDownRight = cave.find(
     (coord) => coord.x === x + 1 && coord.y === y + 1
   );
+
+  // check for roof hit (part 2 requirement)
+  if (
+    y === 0 &&
+    below?.value &&
+    diagonalDownLeft?.value &&
+    diagonalDownRight?.value
+  )
+    return 0;
 
   if (!below?.value) return recursivelyMove(x, y + 1, cave, limit);
 
@@ -126,11 +140,26 @@ function recursivelyMove(
 export const day14 = (data: string[]): Solution => {
   const cave = drawWalls(data);
 
+  const newFloor = Math.max(...cave.map((coord) => coord.y)) + 2;
+  console.log(newFloor);
   function part1() {
-    return poorFromCoordUntilAbyss(500, 0, cave);
+    const limit = Math.max(...cave.map((coord) => coord.y));
+    return poorFromCoordUntilAbyss(500, 0, cave, limit);
   }
   function part2() {
-    return "todo";
+    const caveWithFloor = structuredClone(cave);
+    const newFloor = Math.max(...cave.map((coord) => coord.y)) + 2;
+    for (let i = 500 - newFloor - 2; i < 500 + newFloor + 2; i++) {
+      caveWithFloor.push({ x: i, y: newFloor, value: "#" });
+    }
+    return (
+      poorFromCoordUntilAbyss(
+        500,
+        0,
+        caveWithFloor,
+        newFloor + 1 /* limit is below floor */
+      ) + 1 // ensure we count the grain at the 'roof'
+    );
   }
   return { part1, part2 };
 };
