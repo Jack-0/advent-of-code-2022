@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import { Solution } from "./types/types";
 import { day01 } from "./days/day01";
 import { day02 } from "./days/day02";
 import { day03 } from "./days/day03";
@@ -13,6 +12,8 @@ import { day10 } from "./days/day10";
 import { day11 } from "./days/day11";
 import { day12 } from "./days/day12";
 import { day13 } from "./days/day13";
+import { day14 } from "./days/day14";
+import { Solution } from "./types/types";
 
 export function inputToArray(filepath: string): any[] {
   const data = fs.readFileSync(filepath).toString().split("\n");
@@ -43,6 +44,7 @@ export function solutions(day: number, example: boolean): Solution {
   if (day === 11) return day11(data);
   if (day === 12) return day12(data);
   if (day === 13) return day13(data);
+  if (day === 14) return day14(data);
 
   throw new Error(`No solution found for ${day}`);
 }
