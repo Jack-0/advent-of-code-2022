@@ -13,6 +13,7 @@ import { day11 } from "./days/day11";
 import { day12 } from "./days/day12";
 import { day13 } from "./days/day13";
 import { day14 } from "./days/day14";
+import { day15 } from "./days/day15";
 import { Solution } from "./types/types";
 
 export function inputToArray(filepath: string): any[] {
@@ -45,6 +46,7 @@ export function solutions(day: number, example: boolean): Solution {
   if (day === 12) return day12(data);
   if (day === 13) return day13(data);
   if (day === 14) return day14(data);
+  if (day === 15) return day15(data);
 
   throw new Error(`No solution found for ${day}`);
 }
