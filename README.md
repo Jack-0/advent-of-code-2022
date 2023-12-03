@@ -12,3 +12,7 @@
 
 [AOC](https://adventofcode.com)
 [Show all _**your**_ AOC years](https://adventofcode.com/2022/events)
+
+## Fetching data
+
+To get AOC puzzle input fetch data from `https://adventofcode.com/<YEAR>/day/<DAY>/input` with the header `cookie` = `session=<YOUR_COOKIE>`
