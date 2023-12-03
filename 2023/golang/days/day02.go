@@ -1,7 +1,6 @@
 package days
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -36,6 +35,16 @@ func MapCountsForGame(game Game) map[string]int {
 	return colorCounts
 }
 
+func MapMinCubeCount(game Game) map[string]int {
+	colorCounts := make(map[string]int)
+	for _, play := range game.Games {
+		if play.Count > colorCounts[play.Colour] {
+			colorCounts[play.Colour] = play.Count
+		}
+	}
+	return colorCounts
+}
+
 
 func ValidGameSet(game Game) bool {
 	for _, play := range game.Games {
@@ -52,18 +61,9 @@ func ValidGameSet(game Game) bool {
 	return true
 }
 
-
-func (d Day02) Part1Solution(useExample bool) int {
-	data, err := util.DayToData(2, useExample)
-	if err != nil {
-		return -1
-	}
-
-
+func DataToGames(data []string) []Game {
 	games := []Game {}
-
 	for _, line := range data {
-		fmt.Println(line)
 		gameId := strings.Split(strings.Split(line, ":")[0], "Game ")[1]
 		gameStr := strings.Split(strings.Split(line, ":")[1], ";")
 
@@ -71,7 +71,6 @@ func (d Day02) Part1Solution(useExample bool) int {
 		plays := []Play{}
 
 		for _, gameLine := range gameStr {
-			fmt.Println(gameLine)
 			playStr := strings.Split(gameLine, ",")
 			for _, playLine := range playStr {
 				colour := strings.Split(playLine, " ")[2]
@@ -81,20 +80,19 @@ func (d Day02) Part1Solution(useExample bool) int {
 		}
 		games = append(games, Game{id, plays})
 	}
+	return games
+}
+
+func (d Day02) Part1Solution(useExample bool) int {
+	data, err := util.DayToData(2, useExample)
+	if err != nil {
+		return -1
+	}
+
+	games := DataToGames(data)
 	total := 0
 
 	for _, game := range games {
-		id := game.Id
-		fmt.Println("game ", id)
-		// colourCounts := MapCountsForGame(game)
-		// r := colourCounts["red"]
-		// g := colourCounts["green"]
-		// b := colourCounts["blue"]
-		// if r <= 12 && g <= 13 && b <= 14 {
-		// 	total += id
-		// } else {
-		// 	fmt.Println("NOT included", " r=", r, " g=",g, " b=",b)
-		// }
 		if ValidGameSet(game) {
 			total += game.Id
 		}
@@ -104,5 +102,22 @@ func (d Day02) Part1Solution(useExample bool) int {
 }
 
 func (d Day02) Part2Solution(useExample bool) int {
-	return -2
+	data, err := util.DayToData(2, useExample)
+	if err != nil {
+		return -1
+	}
+
+	games := DataToGames(data)
+	total := 0
+
+	for _, game := range games {
+		minCounts := MapMinCubeCount(game)
+		r := minCounts["red"]
+		g := minCounts["green"]
+		b := minCounts["blue"]
+		power := r * g * b
+		total += power
+	}
+
+	return total
 }
