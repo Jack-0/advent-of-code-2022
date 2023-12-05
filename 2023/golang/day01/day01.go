@@ -1,13 +1,12 @@
-package days
+package day01
 
 import (
+	"bufio"
 	"fmt"
 	"regexp"
 	"sort"
 	"strconv"
 	"strings"
-
-	"github.com/jack-0/aoc/2023/golang/util"
 )
 
 func extractNumbers(input string) []int {
@@ -75,20 +74,12 @@ func convertWordsToInt(input string) string {
 	return input
 }
 
-type Day01 util.Solutions
-
-func (d Day01) GetSolutions() util.Solutions {
-	return util.Solutions{
-		Part1: d.Part1Solution,
-		Part2: d.Part2Solution,
+func Part1(s *bufio.Scanner) int {
+	data := []string{}
+	for s.Scan() {
+		data = append(data, s.Text())
 	}
-}
 
-func (d Day01) Part1Solution(useExample bool) int {
-	data, err := util.DayToData(1, useExample)
-	if err != nil {
-		return -1
-	}
 	total := 0
 	for _, line := range data {
 		values := extractNumbers(line)
@@ -100,10 +91,10 @@ func (d Day01) Part1Solution(useExample bool) int {
 	return total
 }
 
-func (d Day01) Part2Solution(useExample bool) int {
-	data, err := util.DayToData(1, useExample)
-	if err != nil {
-		return -1
+func Part2(s *bufio.Scanner) int {
+	data := []string{}
+	for s.Scan() {
+		data = append(data, s.Text())
 	}
 	total := 0
 	for _, line := range data {

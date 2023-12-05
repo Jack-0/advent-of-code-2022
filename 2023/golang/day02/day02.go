@@ -1,31 +1,20 @@
-package days
+package day02
 
 import (
+	"bufio"
 	"strconv"
 	"strings"
-
-	"github.com/jack-0/aoc/2023/golang/util"
 )
-
-type Day02 util.Solutions
-
-func (d Day02) GetSolutions() util.Solutions {
-	return util.Solutions{
-		Part1: d.Part1Solution,
-		Part2: d.Part2Solution,
-	}
-}
 
 type Play struct {
 	Colour string
-	Count int
+	Count  int
 }
 
 type Game struct {
-	Id int
-	Games []Play 
+	Id    int
+	Games []Play
 }
-
 
 func MapCountsForGame(game Game) map[string]int {
 	colorCounts := make(map[string]int)
@@ -45,7 +34,6 @@ func MapMinCubeCount(game Game) map[string]int {
 	return colorCounts
 }
 
-
 func ValidGameSet(game Game) bool {
 	for _, play := range game.Games {
 		if play.Colour == "red" && play.Count > 12 {
@@ -62,7 +50,7 @@ func ValidGameSet(game Game) bool {
 }
 
 func DataToGames(data []string) []Game {
-	games := []Game {}
+	games := []Game{}
 	for _, line := range data {
 		gameId := strings.Split(strings.Split(line, ":")[0], "Game ")[1]
 		gameStr := strings.Split(strings.Split(line, ":")[1], ";")
@@ -83,10 +71,11 @@ func DataToGames(data []string) []Game {
 	return games
 }
 
-func (d Day02) Part1Solution(useExample bool) int {
-	data, err := util.DayToData(2, useExample)
-	if err != nil {
-		return -1
+func Part1(s *bufio.Scanner) int {
+
+	data := []string{}
+	for s.Scan() {
+		data = append(data, s.Text())
 	}
 
 	games := DataToGames(data)
@@ -101,10 +90,10 @@ func (d Day02) Part1Solution(useExample bool) int {
 	return total
 }
 
-func (d Day02) Part2Solution(useExample bool) int {
-	data, err := util.DayToData(2, useExample)
-	if err != nil {
-		return -1
+func Part2(s *bufio.Scanner) int {
+	data := []string{}
+	for s.Scan() {
+		data = append(data, s.Text())
 	}
 
 	games := DataToGames(data)
