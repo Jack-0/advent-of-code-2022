@@ -9,6 +9,7 @@ import (
 	"github.com/jack-0/aoc/2023/golang/day01"
 	"github.com/jack-0/aoc/2023/golang/day02"
 	"github.com/jack-0/aoc/2023/golang/day03"
+	"github.com/jack-0/aoc/2023/golang/day04"
 )
 
 func GetFilePath(day int, example bool) string {
@@ -95,6 +96,8 @@ func main() {
 		Run(filepath, day02.Part1, day02.Part2)
 	case 3:
 		Run(filepath, day03.Part1, day03.Part2)
+	case 4:
+		Run(filepath, day04.Part1, day04.Part2)
 	default:
 		fmt.Println("Error: No day with value", day, useExample)
 		os.Exit(1)
